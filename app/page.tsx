@@ -305,7 +305,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mb-6 max-w-lg animate-in fade-in slide-in-from-bottom-4 text-sm leading-relaxed text-foreground/70 duration-1000 delay-200 sm:mb-10 sm:text-base md:text-lg">
-              We build AI chatbots, analytics platforms, and custom software that transform businesses.
+              We build AI chatbots, analytics platforms and custom software that transform businesses.
             </p>
             <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-3 duration-1000 delay-300 sm:flex-row sm:items-center sm:gap-4">
               <MagneticButton size="lg" variant="primary" onClick={() => scrollToSection(2)}>
