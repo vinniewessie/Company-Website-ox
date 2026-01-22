@@ -6,7 +6,7 @@ import { Mail, Phone, MessageCircle, Send, X } from "lucide-react"
 import { useReveal } from "@/hooks/use-reveal"
 import { useState } from "react"
 
-const WHATSAPP_NUMBER = "263714384521"
+const WHATSAPP_NUMBER = "263781132817"
 const EMAIL = "vincentwessie@gmail.com"
 const PHONE = "+263 714 384 521"
 
@@ -131,7 +131,7 @@ export function ContactSection() {
               {/* Received Message */}
               <div className="mb-3 max-w-[85%] rounded-lg rounded-tl-none bg-[#202c33] px-3 py-2">
                 <p className="text-sm text-white/90">
-                  Hi! How can we help you today? Send us a message and we'll respond shortly.
+                  Hi! How can we help you today? Send webman a message he will respond instantly.
                 </p>
                 <p className="mt-1 text-right text-[10px] text-white/50">WeKnow</p>
               </div>
