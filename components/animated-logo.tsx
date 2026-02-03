@@ -21,30 +21,28 @@ export function AnimatedLogo() {
     >
       {/* Outer glow ring */}
       <div
-        className={`absolute inset-0 rounded-lg bg-gradient-to-br from-blue-500/30 to-cyan-500/30 blur-md transition-all duration-700 sm:rounded-xl ${
+        className={`absolute inset-0 rounded-lg bg-blue-500/30 blur-md transition-all duration-700 sm:rounded-xl ${
           pulseActive ? "scale-110 opacity-100" : "scale-100 opacity-50"
         }`}
       />
       
       {/* Main container */}
       <div
-        className={`relative flex h-full w-full items-center justify-center rounded-lg border border-foreground/20 bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-md transition-all duration-300 sm:rounded-xl ${
+        className={`relative flex h-full w-full items-center justify-center rounded-lg border border-foreground/20 bg-slate-900/90 backdrop-blur-md transition-all duration-300 sm:rounded-xl ${
           isHovered ? "scale-105 border-blue-500/50" : ""
         }`}
       >
         {/* Animated gradient overlay */}
         <div
-          className={`absolute inset-0 rounded-lg bg-gradient-to-tr from-blue-600/20 via-transparent to-cyan-500/20 transition-opacity duration-500 sm:rounded-xl ${
+          className={`absolute inset-0 rounded-lg bg-blue-600/20 transition-opacity duration-500 sm:rounded-xl ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         />
         
-        {/* Letter W with gradient */}
+        {/* Letter W */}
         <span
           className={`relative z-10 font-sans text-base font-bold transition-all duration-300 sm:text-lg ${
-            isHovered
-              ? "bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
-              : "text-foreground"
+            isHovered ? "text-blue-400" : "text-foreground"
           }`}
         >
           W
