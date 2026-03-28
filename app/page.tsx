@@ -421,6 +421,25 @@ export default function Home() {
           @keyframes slideIn { from{transform:translateX(-100%);opacity:0} to{transform:translateX(0);opacity:1} }
           @keyframes fadeIn { from{opacity:0} to{opacity:1} }
           @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+          @keyframes floatCode1 { 
+            0%,100%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0.6} 
+            25%{transform:translateY(-15px) translateX(5px) rotate(1deg);opacity:0.8}
+            50%{transform:translateY(-8px) translateX(-8px) rotate(-0.5deg);opacity:0.5}
+            75%{transform:translateY(-20px) translateX(3px) rotate(0.5deg);opacity:0.7}
+          }
+          @keyframes floatCode2 { 
+            0%,100%{transform:translateY(0) translateX(0);opacity:0.5} 
+            33%{transform:translateY(-12px) translateX(-6px);opacity:0.7}
+            66%{transform:translateY(-18px) translateX(4px);opacity:0.4}
+          }
+          @keyframes floatCode3 { 
+            0%,100%{transform:translateY(0) rotate(0deg);opacity:0.4} 
+            50%{transform:translateY(-10px) rotate(1deg);opacity:0.6}
+          }
+          @keyframes floatSymbol {
+            0%,100%{transform:translateY(0) scale(1);opacity:1}
+            50%{transform:translateY(-20px) scale(1.1);opacity:0.6}
+          }
         `}} />
 
         {/* Nav */}
@@ -508,8 +527,72 @@ export default function Home() {
         <div ref={containerRef} className="relative z-10 flex h-screen snap-x snap-mandatory overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
 
           {/* HOME */}
-          <section className="flex min-h-screen w-screen shrink-0 snap-start flex-col justify-center px-5 pt-20 sm:px-8 md:px-12 lg:px-16">
-            <div className="max-w-xl lg:max-w-2xl">
+          <section className="relative flex min-h-screen w-screen shrink-0 snap-start flex-col justify-center px-5 pt-20 sm:px-8 md:px-12 lg:px-16">
+            {/* Floating Code Snippets */}
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              {/* Code Block 1 - Top Right */}
+              <div 
+                className="absolute right-[5%] top-[15%] hidden w-56 rounded-lg border border-white/[0.05] bg-slate-900/40 p-3 font-mono text-[10px] backdrop-blur-sm lg:block"
+                style={{ animation: "floatCode1 20s ease-in-out infinite" }}
+              >
+                <div className="mb-1 text-blue-400/60">{"// API Route"}</div>
+                <div className="text-violet-400/50">{"export async function"}</div>
+                <div className="text-cyan-400/50">{"  GET(request) {"}</div>
+                <div className="text-amber-400/50">{"    return Response.json(data)"}</div>
+                <div className="text-cyan-400/50">{"  }"}</div>
+              </div>
+              
+              {/* Code Block 2 - Bottom Right */}
+              <div 
+                className="absolute bottom-[20%] right-[8%] hidden w-48 rounded-lg border border-white/[0.05] bg-slate-900/40 p-3 font-mono text-[10px] backdrop-blur-sm md:block"
+                style={{ animation: "floatCode2 18s ease-in-out infinite 2s" }}
+              >
+                <div className="text-emerald-400/50">{"const bot = new Webman()"}</div>
+                <div className="text-slate-500">{"bot.onMessage(async (msg) => {"}</div>
+                <div className="text-amber-400/50">{"  await bot.reply(msg)"}</div>
+                <div className="text-slate-500">{"});"}</div>
+              </div>
+              
+              {/* Code Block 3 - Top Center */}
+              <div 
+                className="absolute left-[40%] top-[8%] hidden w-44 rounded-lg border border-white/[0.05] bg-slate-900/40 p-2.5 font-mono text-[9px] backdrop-blur-sm xl:block"
+                style={{ animation: "floatCode3 22s ease-in-out infinite 1s" }}
+              >
+                <div className="text-pink-400/50">{"@Component"}</div>
+                <div className="text-violet-400/50">{"class Dashboard {"}</div>
+                <div className="text-cyan-400/40">{"  render() { ... }"}</div>
+                <div className="text-violet-400/50">{"}"}</div>
+              </div>
+              
+              {/* Code Block 4 - Right Middle (Mobile visible) */}
+              <div 
+                className="absolute right-[3%] top-[45%] w-36 rounded-lg border border-white/[0.04] bg-slate-900/30 p-2 font-mono text-[8px] backdrop-blur-sm sm:w-40 sm:text-[9px] md:right-[6%]"
+                style={{ animation: "floatCode2 16s ease-in-out infinite 3s" }}
+              >
+                <div className="text-blue-400/40">{"<?php"}</div>
+                <div className="text-violet-400/40">{"Route::get('/', fn)"}</div>
+                <div className="text-slate-500/40">{"// Laravel"}</div>
+              </div>
+              
+              {/* Code Block 5 - Bottom Left */}
+              <div 
+                className="absolute bottom-[25%] left-[60%] hidden w-52 rounded-lg border border-white/[0.05] bg-slate-900/40 p-3 font-mono text-[10px] backdrop-blur-sm lg:block"
+                style={{ animation: "floatCode1 19s ease-in-out infinite 4s" }}
+              >
+                <div className="text-cyan-400/50">{"function analyze(data) {"}</div>
+                <div className="text-slate-500">{"  const result = ml.predict(data)"}</div>
+                <div className="text-amber-400/50">{"  return { score: result }"}</div>
+                <div className="text-cyan-400/50">{"}"}</div>
+              </div>
+              
+              {/* Floating Brackets/Symbols */}
+              <div className="absolute left-[75%] top-[30%] font-mono text-2xl text-white/[0.03]" style={{ animation: "floatSymbol 15s ease-in-out infinite" }}>{"{ }"}</div>
+              <div className="absolute left-[85%] top-[60%] font-mono text-xl text-white/[0.025]" style={{ animation: "floatSymbol 18s ease-in-out infinite 2s" }}>{"< />"}</div>
+              <div className="absolute left-[65%] top-[75%] hidden font-mono text-3xl text-white/[0.02] md:block" style={{ animation: "floatSymbol 20s ease-in-out infinite 4s" }}>{"( )"}</div>
+              <div className="absolute left-[55%] top-[12%] hidden font-mono text-lg text-white/[0.025] lg:block" style={{ animation: "floatSymbol 17s ease-in-out infinite 1s" }}>{"=>"}</div>
+            </div>
+            
+            <div className="relative z-10 max-w-xl lg:max-w-2xl">
               <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
                 <span className="text-[10px] font-medium tracking-wide text-white/40 sm:text-xs">Available for projects</span>
