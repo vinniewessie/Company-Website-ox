@@ -85,14 +85,15 @@ function SplashScreen({ onDone }: { onDone: () => void }) {
       )}
 
       {phase === "name" && (
-        <div className="text-center px-4" style={{ animation: "fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both" }}>
+        <div className="text-center px-4" style={{ animation: "fadeUp 1s cubic-bezier(0.16,1,0.3,1) both" }}>
           <h1
-            className="bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-4xl font-bold tracking-[0.3em] text-transparent sm:text-6xl md:text-7xl lg:text-8xl"
-            style={{ animation: "glow 2s ease-in-out infinite" }}
+            className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 bg-clip-text text-5xl font-extralight tracking-[0.4em] text-transparent sm:text-7xl md:text-8xl lg:text-9xl"
+            style={{ animation: "glow 3s ease-in-out infinite" }}
           >
             WEBMAN
           </h1>
-          <p className="mt-4 text-xs text-white/30 tracking-widest sm:text-sm">by WeKnow Solutions</p>
+          <div className="mt-6 h-px w-24 mx-auto bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <p className="mt-4 text-[10px] text-white/25 tracking-[0.3em] uppercase sm:text-xs">by WeKnow Solutions</p>
         </div>
       )}
     </div>
@@ -405,17 +406,21 @@ export default function Home() {
         
         {/* Background */}
         <div className="fixed inset-0 z-0">
-          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 20% 30%, rgba(59,130,246,0.05) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(99,102,241,0.03) 0%, transparent 45%), #030712" }} />
-          <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.3) 1px,transparent 1px)", backgroundSize: "80px 80px" }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 15% 20%, rgba(59,130,246,0.04) 0%, transparent 50%), radial-gradient(ellipse at 85% 80%, rgba(99,102,241,0.025) 0%, transparent 45%), radial-gradient(ellipse at 50% 50%, #050a15 0%, #030712 100%)" }} />
+          <div className="absolute inset-0 opacity-[0.012]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.2) 1px,transparent 1px)", backgroundSize: "100px 100px" }} />
+          {/* Subtle floating orb */}
+          <div className="absolute left-1/4 top-1/3 h-96 w-96 rounded-full bg-blue-500/[0.015] blur-3xl" />
+          <div className="absolute right-1/4 bottom-1/3 h-72 w-72 rounded-full bg-indigo-500/[0.01] blur-3xl" />
         </div>
 
         {/* Keyframes */}
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
-          @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-          @keyframes glow { 0%,100%{filter:drop-shadow(0 0 30px rgba(59,130,246,0.4))} 50%{filter:drop-shadow(0 0 60px rgba(59,130,246,0.6))} }
-          @keyframes slideIn { from{transform:translateX(-100%)} to{transform:translateX(0)} }
+          @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+          @keyframes glow { 0%,100%{filter:drop-shadow(0 0 40px rgba(59,130,246,0.25))} 50%{filter:drop-shadow(0 0 80px rgba(99,102,241,0.35))} }
+          @keyframes slideIn { from{transform:translateX(-100%);opacity:0} to{transform:translateX(0);opacity:1} }
           @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+          @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
         `}} />
 
         {/* Nav */}
@@ -503,52 +508,52 @@ export default function Home() {
         <div ref={containerRef} className="relative z-10 flex h-screen snap-x snap-mandatory overflow-x-auto overflow-y-hidden" style={{ scrollbarWidth: "none" }}>
 
           {/* HOME */}
-          <section className="flex min-h-screen w-screen shrink-0 snap-start flex-col justify-center px-4 pt-16 sm:px-6 md:px-8 lg:px-12">
+          <section className="flex min-h-screen w-screen shrink-0 snap-start flex-col justify-center px-5 pt-20 sm:px-8 md:px-12 lg:px-16">
             <div className="max-w-xl lg:max-w-2xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 sm:px-4">
-                <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                <span className="text-[10px] text-white/50 sm:text-xs">Available for projects</span>
+              <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                <span className="text-[10px] font-medium tracking-wide text-white/40 sm:text-xs">Available for projects</span>
               </div>
 
-              <h1 className="mb-4 text-2xl font-light leading-tight tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+              <h1 className="mb-5 text-3xl font-extralight leading-[1.15] tracking-tight text-white/90 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 Intelligent Software
                 <br />
-                <span className="text-white/40">Solutions.</span>
+                <span className="text-white/30">Solutions.</span>
               </h1>
 
-              <p className="mb-6 max-w-md text-sm leading-relaxed text-white/40 sm:mb-8 sm:text-base">
+              <p className="mb-8 max-w-md text-sm leading-relaxed text-white/35 sm:mb-10 sm:text-base md:text-lg">
                 We build AI chatbots, analytics platforms, e-commerce, and custom software that drive growth.
               </p>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-                <button onClick={() => goTo(2)} className="group flex items-center justify-center gap-2 rounded-full bg-slate-800 px-6 py-3 text-sm font-medium text-white/80 transition-all hover:bg-slate-700 sm:px-8">
+                <button onClick={() => goTo(2)} className="group flex items-center justify-center gap-2.5 rounded-full bg-white/[0.08] px-7 py-3.5 text-sm font-medium text-white/80 backdrop-blur-sm transition-all hover:bg-white/[0.12] sm:px-9">
                   Book a Service
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
-                <button onClick={() => goTo(1)} className="flex items-center justify-center gap-2 rounded-full border border-white/10 px-6 py-3 text-sm font-medium text-white/50 transition-all hover:border-white/20 hover:text-white/70 sm:px-8">
+                <button onClick={() => goTo(1)} className="flex items-center justify-center gap-2 rounded-full border border-white/[0.08] px-7 py-3.5 text-sm font-medium text-white/40 transition-all hover:border-white/15 hover:text-white/60 sm:px-9">
                   View Services
                 </button>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-2 sm:mt-10">
+              <div className="mt-10 flex flex-wrap gap-2.5 sm:mt-12">
                 {["Laravel", "React", "Python", "AI/ML"].map((t) => (
-                  <span key={t} className="rounded-full border border-white/5 bg-white/[0.02] px-3 py-1 text-xs text-white/30">{t}</span>
+                  <span key={t} className="rounded-full border border-white/[0.05] bg-white/[0.02] px-3.5 py-1.5 text-[10px] font-medium tracking-wide text-white/25 sm:text-xs">{t}</span>
                 ))}
               </div>
             </div>
           </section>
 
           {/* SERVICES */}
-          <section className="flex min-h-screen w-screen shrink-0 snap-start items-center px-4 py-16 sm:px-6 md:px-8 md:py-0 lg:px-12">
+          <section className="flex min-h-screen w-screen shrink-0 snap-start items-center px-5 py-20 sm:px-8 md:px-12 md:py-0 lg:px-16">
             <div className="mx-auto w-full max-w-5xl">
-              <div className="mb-4 sm:mb-6">
-                <h2 className="mb-1 text-xl font-light text-white sm:text-2xl md:text-3xl">Services</h2>
-                <p className="text-xs text-white/30 sm:text-sm">Select a service to see a demo</p>
+              <div className="mb-6 sm:mb-8">
+                <h2 className="mb-2 text-xl font-extralight tracking-tight text-white/90 sm:text-2xl md:text-3xl">Our Services</h2>
+                <p className="text-xs text-white/30 sm:text-sm">Select a service to explore the demo</p>
               </div>
 
-              <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
+              <div className="flex flex-col gap-5 lg:flex-row lg:gap-8">
                 {/* Service list - horizontal scroll on mobile */}
-                <div className="flex gap-2 overflow-x-auto pb-2 lg:w-64 lg:shrink-0 lg:flex-col lg:overflow-visible lg:pb-0">
+                <div className="flex gap-2.5 overflow-x-auto pb-3 lg:w-60 lg:shrink-0 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0">
                   {SERVICES.map((s) => {
                     const Icon = s.icon
                     const active = selectedSvc === s.key
@@ -556,14 +561,14 @@ export default function Home() {
                       <button
                         key={s.key}
                         onClick={() => setSelectedSvc(s.key)}
-                        className={`flex shrink-0 items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-all sm:px-4 sm:py-3 lg:w-full ${active ? "border-white/15 bg-white/[0.06]" : "border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.04]"}`}
+                        className={`flex shrink-0 items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 lg:w-full lg:py-3.5 ${active ? "border-white/[0.12] bg-white/[0.05]" : "border-white/[0.04] bg-white/[0.015] hover:border-white/[0.08] hover:bg-white/[0.03]"}`}
                       >
-                        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg sm:h-9 sm:w-9 ${active ? "bg-white/10" : "bg-white/5"}`}>
-                          <Icon className={`h-4 w-4 ${active ? "text-white/70" : "text-white/40"}`} />
+                        <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${active ? "bg-white/[0.08]" : "bg-white/[0.03]"}`}>
+                          <Icon className={`h-4 w-4 transition-colors ${active ? "text-white/60" : "text-white/30"}`} />
                         </div>
                         <div>
-                          <div className={`text-xs font-medium sm:text-sm ${active ? "text-white/80" : "text-white/50"}`}>{s.key}</div>
-                          <div className="hidden text-xs text-white/30 lg:block">{s.desc}</div>
+                          <div className={`text-xs font-medium transition-colors sm:text-sm ${active ? "text-white/70" : "text-white/40"}`}>{s.key}</div>
+                          <div className="hidden text-[11px] text-white/25 lg:block">{s.desc}</div>
                         </div>
                       </button>
                     )
@@ -571,7 +576,7 @@ export default function Home() {
                 </div>
 
                 {/* Demo */}
-                <div className="flex-1 overflow-hidden rounded-xl border border-white/10 bg-slate-900/30" style={{ minHeight: 320 }}>
+                <div className="flex-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-slate-900/40 backdrop-blur-sm" style={{ minHeight: 340 }}>
                   {renderDemo(selectedSvc)}
                 </div>
               </div>
@@ -579,45 +584,45 @@ export default function Home() {
           </section>
 
           {/* CONTACT */}
-          <section className="flex min-h-screen w-screen shrink-0 snap-start items-center px-4 py-16 sm:px-6 md:px-8 md:py-0 lg:px-12">
-            <div className="mx-auto w-full max-w-lg">
-              <div className="mb-4 text-center sm:mb-6">
-                <h2 className="mb-1 text-xl font-light text-white sm:text-2xl md:text-3xl">Get in Touch</h2>
+          <section className="flex min-h-screen w-screen shrink-0 snap-start items-center px-5 py-20 sm:px-8 md:px-12 md:py-0 lg:px-16">
+            <div className="mx-auto w-full max-w-md">
+              <div className="mb-8 text-center">
+                <h2 className="mb-2 text-xl font-extralight tracking-tight text-white/90 sm:text-2xl md:text-3xl">Get in Touch</h2>
                 <p className="text-xs text-white/30 sm:text-sm">We&apos;d love to hear from you</p>
               </div>
 
-              <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3 transition-all hover:border-white/15 hover:bg-white/[0.05] sm:p-4">
-                  <Mail className="h-5 w-5 text-white/40" />
+              <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <a href={`mailto:${EMAIL}`} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-200 hover:border-white/[0.1] hover:bg-white/[0.04]">
+                  <Mail className="h-5 w-5 text-white/30" />
                   <div>
-                    <div className="text-sm font-medium text-white/60">Email</div>
-                    <div className="text-[10px] text-white/30 sm:text-xs">vincentwessie</div>
+                    <div className="text-sm font-medium text-white/50">Email</div>
+                    <div className="text-[10px] text-white/25 sm:text-xs">vincentwessie</div>
                   </div>
                 </a>
-                <a href={`tel:${WHATSAPP_NUMBER}`} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3 transition-all hover:border-white/15 hover:bg-white/[0.05] sm:p-4">
-                  <Phone className="h-5 w-5 text-white/40" />
+                <a href={`tel:${WHATSAPP_NUMBER}`} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-200 hover:border-white/[0.1] hover:bg-white/[0.04]">
+                  <Phone className="h-5 w-5 text-white/30" />
                   <div>
-                    <div className="text-sm font-medium text-white/60">Call</div>
-                    <div className="text-[10px] text-white/30 sm:text-xs">+263 781...</div>
+                    <div className="text-sm font-medium text-white/50">Call</div>
+                    <div className="text-[10px] text-white/25 sm:text-xs">+263 781...</div>
                   </div>
                 </a>
-                <button onClick={() => setChatOpen(true)} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] p-3 transition-all hover:border-white/15 hover:bg-white/[0.05] sm:p-4">
-                  <MessageCircle className="h-5 w-5 text-white/40" />
+                <button onClick={() => setChatOpen(true)} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 transition-all duration-200 hover:border-white/[0.1] hover:bg-white/[0.04]">
+                  <MessageCircle className="h-5 w-5 text-white/30" />
                   <div className="text-left">
-                    <div className="text-sm font-medium text-white/60">WhatsApp</div>
-                    <div className="text-[10px] text-white/30 sm:text-xs">Chat now</div>
+                    <div className="text-sm font-medium text-white/50">WhatsApp</div>
+                    <div className="text-[10px] text-white/25 sm:text-xs">Chat now</div>
                   </div>
                 </button>
               </div>
 
-              <div className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5">
                 <textarea
                   value={msg}
                   onChange={(e) => setMsg(e.target.value)}
                   placeholder="Tell us about your project..."
-                  className="mb-3 h-24 w-full resize-none rounded-lg border border-white/10 bg-slate-900/50 px-4 py-3 text-sm text-white placeholder:text-white/20 focus:border-white/20 focus:outline-none"
+                  className="mb-4 h-28 w-full resize-none rounded-xl border border-white/[0.06] bg-slate-950/50 px-4 py-3.5 text-sm text-white/80 placeholder:text-white/20 focus:border-white/[0.12] focus:outline-none"
                 />
-                <button onClick={sendWA} disabled={!msg.trim()} className="w-full rounded-lg bg-slate-800 py-2.5 text-sm font-medium text-white/60 transition-all hover:bg-slate-700 disabled:opacity-40">
+                <button onClick={sendWA} disabled={!msg.trim()} className="w-full rounded-xl bg-white/[0.06] py-3 text-sm font-medium text-white/50 transition-all duration-200 hover:bg-white/[0.1] hover:text-white/70 disabled:opacity-30">
                   Send via WhatsApp
                 </button>
               </div>
@@ -664,9 +669,9 @@ export default function Home() {
         )}
 
         {/* Section indicators */}
-        <div className="fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-6">
+        <div className="fixed bottom-5 left-1/2 z-30 flex -translate-x-1/2 gap-2.5 sm:bottom-8">
           {navItems.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} className={`h-1.5 rounded-full transition-all ${section === i ? "w-6 bg-white/50" : "w-1.5 bg-white/20"}`} />
+            <button key={i} onClick={() => goTo(i)} className={`rounded-full transition-all duration-300 ${section === i ? "h-1.5 w-7 bg-white/40" : "h-1.5 w-1.5 bg-white/15 hover:bg-white/25"}`} />
           ))}
         </div>
       </main>
