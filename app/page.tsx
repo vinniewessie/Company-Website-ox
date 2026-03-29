@@ -373,19 +373,15 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const c = containerRef.current
-    if (!c) return
-    const wheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        e.preventDefault()
-        c.scrollBy({ left: e.deltaY, behavior: "instant" })
-        const s = Math.round(c.scrollLeft / c.offsetWidth)
-        if (s !== section) setSection(s)
-      }
+    if (splashDone) {
+      setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollTo({ left: 0, behavior: "smooth" })
+          setSection(0)
+        }
+      }, 300)
     }
-    c.addEventListener("wheel", wheel, { passive: false })
-    return () => c.removeEventListener("wheel", wheel)
-  }, [section])
+  }, [splashDone])
 
   const renderDemo = (k: string) => {
     switch (k) {
