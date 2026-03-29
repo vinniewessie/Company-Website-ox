@@ -649,45 +649,45 @@ export default function Home() {
           style={{ scrollSnapType: "none" }}
         >
           {/* HOME */}
-          <section className="relative flex min-h-screen w-screen shrink-0 flex-col justify-center px-5 pt-20 sm:px-8 md:px-12 lg:px-16">
-            <div className="relative z-10 max-w-xl lg:max-w-2xl">
+          <section className="relative flex min-h-screen w-screen shrink-0 flex-col justify-center px-4 pt-16 sm:px-6 sm:pt-20 md:px-10 lg:px-14">
+            <div className="relative z-10 max-w-lg sm:max-w-xl lg:max-w-2xl">
               {/* Status badge — glassmorphism */}
-              <div className="mb-6 inline-flex items-center gap-2.5 rounded-full px-4 py-2" style={glass.card}>
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 sm:mb-6 sm:gap-2.5 sm:px-4 sm:py-2" style={glass.card}>
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                <span className="text-[10px] font-medium tracking-wide text-white/40 sm:text-xs">Available for projects</span>
+                <span className="text-[9px] font-medium tracking-wide text-white/40 sm:text-[10px] md:text-xs">Available for projects</span>
               </div>
 
-              <h1 className="mb-5 text-3xl font-extralight leading-[1.15] tracking-tight text-white/90 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <h1 className="mb-4 text-2xl font-extralight leading-[1.15] tracking-tight text-white/90 sm:mb-5 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                 Intelligent Software
                 <br />
                 <span className="text-white/25">Solutions.</span>
               </h1>
 
-              <p className="mb-8 max-w-md text-sm leading-relaxed text-white/35 sm:text-base">
+              <p className="mb-6 max-w-sm text-xs leading-relaxed text-white/35 sm:mb-8 sm:max-w-md sm:text-sm md:text-base">
                 We build AI chatbots, analytics platforms, e-commerce, and custom software that drive growth.
               </p>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-3 md:gap-4">
                 <button
                   onClick={() => goTo(2)}
-                  className="group flex items-center justify-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-medium text-white/75 transition-all hover:text-white/90"
+                  className="group flex items-center justify-center gap-2 rounded-full px-5 py-3 text-xs font-medium text-white/75 transition-all hover:text-white/90 sm:gap-2.5 sm:px-6 sm:py-3.5 sm:text-sm"
                   style={glass.card}
                 >
                   Book a Service
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 sm:h-4 sm:w-4" />
                 </button>
                 <button
                   onClick={() => goTo(1)}
-                  className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-medium text-white/35 transition-all hover:text-white/55"
+                  className="flex items-center justify-center rounded-full px-5 py-3 text-xs font-medium text-white/35 transition-all hover:text-white/55 sm:px-6 sm:py-3.5 sm:text-sm"
                   style={{ border: "1px solid rgba(255,255,255,0.07)" }}
                 >
                   View Services
                 </button>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-2.5">
+              <div className="mt-6 flex flex-wrap gap-1.5 sm:mt-8 sm:gap-2 md:mt-10 md:gap-2.5">
                 {["Laravel", "React", "Python", "SQL", "C#", "AI/ML"].map(t => (
-                  <span key={t} className="rounded-full px-3.5 py-1.5 text-[10px] font-medium tracking-wide text-white/30" style={glass.card}>
+                  <span key={t} className="rounded-full px-2.5 py-1 text-[8px] font-medium tracking-wide text-white/30 sm:px-3 sm:py-1.5 sm:text-[9px] md:px-3.5 md:text-[10px]" style={glass.card}>
                     {t}
                   </span>
                 ))}
@@ -696,16 +696,16 @@ export default function Home() {
           </section>
 
           {/* SERVICES */}
-          <section className="flex min-h-screen w-screen shrink-0 items-center px-5 py-20 sm:px-8 md:px-12 md:py-0 lg:px-16">
+          <section className="flex min-h-screen w-screen shrink-0 items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-0 lg:px-14">
             <div className="relative z-10 mx-auto w-full max-w-5xl">
-              <div className="mb-7 sm:mb-9">
-                <h2 className="mb-1.5 text-xl font-extralight tracking-tight text-white/85 sm:text-2xl md:text-3xl">Our Services</h2>
-                <p className="text-xs text-white/25 sm:text-sm">Select a service to explore the demo</p>
+              <div className="mb-5 sm:mb-8">
+                <h2 className="mb-1 text-lg font-extralight tracking-tight text-white/85 sm:text-xl md:text-2xl lg:text-3xl">Our Services</h2>
+                <p className="text-[11px] text-white/25 sm:text-xs md:text-sm">Select a service to explore</p>
               </div>
 
-              <div className="flex flex-col gap-5 lg:flex-row lg:gap-8">
-                {/* Service list */}
-                <div className="flex gap-2.5 overflow-x-auto pb-3 lg:w-60 lg:shrink-0 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0">
+              <div className="flex flex-col gap-4 lg:flex-row lg:gap-6">
+                {/* Service list - mobile: compact grid, desktop: sidebar */}
+                <div className="grid grid-cols-5 gap-1.5 sm:flex sm:gap-2 sm:overflow-x-auto sm:pb-2 lg:w-56 lg:shrink-0 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0">
                   {SERVICES.map(s => {
                     const Icon = s.icon
                     const active = selectedSvc === s.key
@@ -713,17 +713,20 @@ export default function Home() {
                       <button
                         key={s.key}
                         onClick={() => setSelectedSvc(s.key)}
-                        className="flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left transition-all duration-200 lg:w-full lg:py-3.5"
-                        style={active ? { ...glass.card, border: "1px solid rgba(255,255,255,0.12)" } : { border: "1px solid rgba(255,255,255,0.04)", background: "rgba(255,255,255,0.015)" }}
+                        className="flex flex-col items-center gap-1 rounded-lg px-1.5 py-2.5 transition-all duration-200 sm:flex-row sm:gap-2.5 sm:rounded-xl sm:px-3 sm:py-2.5 lg:w-full lg:py-3"
+                        style={active ? { ...glass.card, border: "1px solid rgba(255,255,255,0.12)" } : { border: "1px solid rgba(255,255,255,0.04)", background: "rgba(255,255,255,0.02)" }}
                       >
                         <div
-                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors"
-                          style={{ background: active ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.03)" }}
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors sm:h-9 sm:w-9"
+                          style={{ background: active ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.04)" }}
                         >
-                          <Icon className={`h-4 w-4 transition-colors ${active ? "text-white/55" : "text-white/22"}`} />
+                          <Icon className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-colors ${active ? "text-white/60" : "text-white/25"}`} />
                         </div>
-                        <div>
-                          <div className={`text-xs font-medium sm:text-sm ${active ? "text-white/70" : "text-white/30"}`}>{s.key}</div>
+                        <div className="text-center sm:text-left">
+                          <div className={`text-[9px] font-medium leading-tight sm:text-xs lg:text-sm ${active ? "text-white/70" : "text-white/35"}`}>
+                            <span className="sm:hidden">{s.key.split(" ")[0]}</span>
+                            <span className="hidden sm:inline">{s.key}</span>
+                          </div>
                           <div className="hidden text-[10px] text-white/20 lg:block">{s.desc}</div>
                         </div>
                       </button>
@@ -732,7 +735,7 @@ export default function Home() {
                 </div>
 
                 {/* Demo panel */}
-                <div className="flex-1 overflow-hidden rounded-2xl" style={{ ...glass.card, minHeight: 340 }}>
+                <div className="flex-1 overflow-hidden rounded-xl sm:rounded-2xl" style={{ ...glass.card, minHeight: 280 }}>
                   {renderDemo(selectedSvc)}
                 </div>
               </div>
@@ -740,61 +743,61 @@ export default function Home() {
           </section>
 
           {/* CONTACT */}
-          <section className="flex min-h-screen w-screen shrink-0 items-center px-5 py-20 sm:px-8 md:px-12 md:py-0 lg:px-16">
-            <div className="relative z-10 mx-auto w-full max-w-md">
-              <div className="mb-8 text-center">
-                <h2 className="mb-2 text-xl font-extralight tracking-tight text-white/85 sm:text-2xl md:text-3xl">Get in Touch</h2>
-                <p className="text-xs text-white/25 sm:text-sm">We&apos;d love to hear from you</p>
+          <section className="flex min-h-screen w-screen shrink-0 items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-0 lg:px-14">
+            <div className="relative z-10 mx-auto w-full max-w-sm sm:max-w-md">
+              <div className="mb-6 text-center sm:mb-8">
+                <h2 className="mb-1.5 text-lg font-extralight tracking-tight text-white/85 sm:text-xl md:text-2xl lg:text-3xl">Get in Touch</h2>
+                <p className="text-[11px] text-white/25 sm:text-xs md:text-sm">We&apos;d love to hear from you</p>
               </div>
 
-              <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="mb-4 grid grid-cols-3 gap-2 sm:mb-5 sm:gap-3">
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="flex items-center gap-3 rounded-xl p-4 transition-all duration-200 hover:opacity-80"
+                  className="flex flex-col items-center gap-2 rounded-xl p-3 text-center transition-all duration-200 hover:opacity-80 sm:flex-row sm:gap-3 sm:p-4 sm:text-left"
                   style={glass.card}
                 >
-                  <Mail className="h-5 w-5 text-blue-400/60" />
+                  <Mail className="h-4 w-4 text-blue-400/60 sm:h-5 sm:w-5" />
                   <div>
-                    <div className="text-xs font-medium text-white/50">Email</div>
-                    <div className="text-[10px] text-white/25">vincentwessie</div>
+                    <div className="text-[10px] font-medium text-white/50 sm:text-xs">Email</div>
+                    <div className="hidden text-[10px] text-white/25 sm:block">vincentwessie</div>
                   </div>
                 </a>
                 <a
                   href={`tel:${WHATSAPP_NUMBER}`}
-                  className="flex items-center gap-3 rounded-xl p-4 transition-all duration-200 hover:opacity-80"
+                  className="flex flex-col items-center gap-2 rounded-xl p-3 text-center transition-all duration-200 hover:opacity-80 sm:flex-row sm:gap-3 sm:p-4 sm:text-left"
                   style={glass.card}
                 >
-                  <Phone className="h-5 w-5 text-cyan-400/60" />
+                  <Phone className="h-4 w-4 text-cyan-400/60 sm:h-5 sm:w-5" />
                   <div>
-                    <div className="text-xs font-medium text-white/50">Call</div>
-                    <div className="text-[10px] text-white/25">+263 781...</div>
+                    <div className="text-[10px] font-medium text-white/50 sm:text-xs">Call</div>
+                    <div className="hidden text-[10px] text-white/25 sm:block">+263 781...</div>
                   </div>
                 </a>
                 <button
                   onClick={() => setChatOpen(true)}
-                  className="flex items-center gap-3 rounded-xl p-4 transition-all duration-200 hover:opacity-80"
+                  className="flex flex-col items-center gap-2 rounded-xl p-3 text-center transition-all duration-200 hover:opacity-80 sm:flex-row sm:gap-3 sm:p-4 sm:text-left"
                   style={glass.card}
                 >
-                  <MessageCircle className="h-5 w-5 text-emerald-400/60" />
-                  <div className="text-left">
-                    <div className="text-xs font-medium text-white/50">WhatsApp</div>
-                    <div className="text-[10px] text-white/25">Chat now</div>
+                  <MessageCircle className="h-4 w-4 text-emerald-400/60 sm:h-5 sm:w-5" />
+                  <div>
+                    <div className="text-[10px] font-medium text-white/50 sm:text-xs">WhatsApp</div>
+                    <div className="hidden text-[10px] text-white/25 sm:block">Chat now</div>
                   </div>
                 </button>
               </div>
 
-              <div className="rounded-2xl p-5" style={glass.card}>
+              <div className="rounded-xl p-4 sm:rounded-2xl sm:p-5" style={glass.card}>
                 <textarea
                   value={msg}
                   onChange={e => setMsg(e.target.value)}
                   placeholder="Tell us about your project..."
-                  className="mb-4 h-28 w-full resize-none rounded-xl px-4 py-3.5 text-sm text-white/70 placeholder:text-white/20 focus:outline-none"
+                  className="mb-3 h-24 w-full resize-none rounded-lg px-3 py-3 text-sm text-white/70 placeholder:text-white/20 focus:outline-none sm:mb-4 sm:h-28 sm:rounded-xl sm:px-4 sm:py-3.5"
                   style={glass.input}
                 />
                 <button
                   onClick={sendWA}
                   disabled={!msg.trim()}
-                  className="w-full rounded-xl py-3 text-sm font-medium text-white/45 transition-all hover:text-white/65 disabled:opacity-25"
+                  className="w-full rounded-lg py-2.5 text-xs font-medium text-white/45 transition-all hover:text-white/65 disabled:opacity-25 sm:rounded-xl sm:py-3 sm:text-sm"
                   style={glass.btn}
                 >
                   Send via WhatsApp
