@@ -10,97 +10,83 @@ const WHATSAPP_NUMBER = "263781132817"
 const EMAIL = "vincentwessie@gmail.com"
 const PHONE = "+263 781 132 817"
 
-// ─── Code Rain ─────────────────────────────────────────────────────────────────
-const CODE_LINES = [
-  { t: "<?php namespace App\\Console;", c: "#60a5fa" },
-  { t: "use Illuminate\\Console\\Command;", c: "#a78bfa" },
-  { t: "class BootWebman extends Command {", c: "#c084fc" },
-  { t: "  protected $signature = 'webman:run';", c: "#38bdf8" },
-  { t: "  public function handle() {", c: "#34d399" },
-  { t: "    $bot = new WhatsAppBot();", c: "#fbbf24" },
-  { t: "    $bot->listen()->reply();", c: "#f472b6" },
-  { t: "    return Command::SUCCESS;", c: "#38bdf8" },
-  { t: "  }", c: "#34d399" },
-  { t: "}", c: "#a78bfa" },
-  { t: "Route::get('/api/v1/bot', [WebmanController::class, 'index']);", c: "#60a5fa" },
-  { t: "const analyze = (data: Dataset) => {", c: "#60a5fa" },
-  { t: "  const model = new MLPipeline(data);", c: "#a78bfa" },
-  { t: "  return model.predict().confidence;", c: "#fbbf24" },
-  { t: "};", c: "#38bdf8" },
-  { t: "export async function GET(req: Request) {", c: "#34d399" },
-  { t: "  const { userId } = await auth();", c: "#a78bfa" },
-  { t: "  const data = await db.query.find({ userId });", c: "#fbbf24" },
-  { t: "  return Response.json({ data, status: 200 });", c: "#38bdf8" },
-  { t: "}", c: "#34d399" },
-  { t: "@Component({ selector: 'app-root' })", c: "#f472b6" },
-  { t: "SELECT u.name, SUM(o.total) as revenue", c: "#60a5fa" },
-  { t: "FROM users u JOIN orders o ON u.id = o.user_id", c: "#a78bfa" },
-  { t: "WHERE o.status = 'completed' GROUP BY u.id;", c: "#fbbf24" },
-  { t: "function trainModel(epochs: number) {", c: "#34d399" },
-  { t: "  loss = backpropagate(weights);", c: "#f472b6" },
-  { t: "  weights = optimize(loss, lr);", c: "#fbbf24" },
-  { t: "}", c: "#34d399" },
-  { t: "import torch; model = torch.nn.Transformer()", c: "#60a5fa" },
-  { t: "const ws = new WebSocket('wss://api.webman.io')", c: "#38bdf8" },
+// ─── Floating Code Animation ───────────────────────────────────────────────────
+const CODE_SNIPPETS = [
+  { code: "<?php namespace App\\Http;", lang: "php", color: "#60a5fa" },
+  { code: "use Illuminate\\Support\\Facades;", lang: "php", color: "#a78bfa" },
+  { code: "Route::get('/api', fn() => response());", lang: "php", color: "#f472b6" },
+  { code: "const bot = new WebmanAI();", lang: "ts", color: "#38bdf8" },
+  { code: "export async function POST(req) {", lang: "ts", color: "#34d399" },
+  { code: "  return Response.json(data);", lang: "ts", color: "#fbbf24" },
+  { code: "SELECT * FROM users WHERE active = 1;", lang: "sql", color: "#60a5fa" },
+  { code: "INSERT INTO orders (user_id, total)", lang: "sql", color: "#a78bfa" },
+  { code: "JOIN payments p ON o.id = p.order_id", lang: "sql", color: "#c084fc" },
+  { code: "public class WebmanService {", lang: "csharp", color: "#68d391" },
+  { code: "  private readonly IBot _bot;", lang: "csharp", color: "#4fd1c5" },
+  { code: "  public async Task<Result> Run()", lang: "csharp", color: "#63b3ed" },
+  { code: "import { useEffect, useState }", lang: "ts", color: "#f472b6" },
+  { code: "function analyze(data: Dataset) {", lang: "ts", color: "#34d399" },
+  { code: "  const ml = new Pipeline(data);", lang: "ts", color: "#fbbf24" },
+  { code: "CREATE TABLE transactions (", lang: "sql", color: "#60a5fa" },
+  { code: "  id SERIAL PRIMARY KEY,", lang: "sql", color: "#a78bfa" },
+  { code: "await _context.SaveChangesAsync();", lang: "csharp", color: "#68d391" },
+  { code: "$result = DB::table('logs')->get();", lang: "php", color: "#c084fc" },
+  { code: "var client = new HttpClient();", lang: "csharp", color: "#4fd1c5" },
 ]
 
-function CodeRainBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+function FloatingCodeBackground() {
+  const [codeLines, setCodeLines] = useState<Array<{
+    id: number
+    snippet: typeof CODE_SNIPPETS[0]
+    x: number
+    y: number
+    speed: number
+    opacity: number
+  }>>([])
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    // Initialize floating code lines
+    const lines = Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      snippet: CODE_SNIPPETS[Math.floor(Math.random() * CODE_SNIPPETS.length)],
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      speed: 0.02 + Math.random() * 0.03,
+      opacity: 0.15 + Math.random() * 0.25,
+    }))
+    setCodeLines(lines)
 
-    let animId: number
-    let w = 0, h = 0
+    // Slowly move lines
+    const interval = setInterval(() => {
+      setCodeLines(prev => prev.map(line => ({
+        ...line,
+        y: line.y >= 105 ? -5 : line.y + line.speed,
+        snippet: line.y >= 105 ? CODE_SNIPPETS[Math.floor(Math.random() * CODE_SNIPPETS.length)] : line.snippet,
+      })))
+    }, 50)
 
-    const resize = () => {
-      w = canvas.width = window.innerWidth
-      h = canvas.height = window.innerHeight
-    }
-    resize()
-    window.addEventListener("resize", resize)
-
-    // Create columns of falling characters/code
-    const fontSize = 11
-    const cols = Math.floor(w / (fontSize * 18))
-    const drops: number[] = Array(cols).fill(0).map(() => Math.random() * -80)
-    const lineIdx: number[] = Array(cols).fill(0).map(() => Math.floor(Math.random() * CODE_LINES.length))
-
-    const draw = () => {
-      ctx.fillStyle = "rgba(3, 7, 18, 0.06)"
-      ctx.fillRect(0, 0, w, h)
-
-      for (let i = 0; i < cols; i++) {
-        const line = CODE_LINES[lineIdx[i] % CODE_LINES.length]
-        ctx.font = `${fontSize}px monospace`
-        ctx.fillStyle = line.c + "55" // ~33% opacity hex
-        ctx.fillText(line.t, i * fontSize * 18, drops[i] * fontSize)
-
-        if (drops[i] * fontSize > h && Math.random() > 0.975) {
-          drops[i] = 0
-          lineIdx[i] = Math.floor(Math.random() * CODE_LINES.length)
-        }
-        drops[i] += 0.35
-      }
-      animId = requestAnimationFrame(draw)
-    }
-
-    draw()
-    return () => {
-      window.removeEventListener("resize", resize)
-      cancelAnimationFrame(animId)
-    }
+    return () => clearInterval(interval)
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0"
-      style={{ opacity: 0.85 }}
-    />
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {codeLines.map(line => (
+        <div
+          key={line.id}
+          className="absolute whitespace-nowrap font-mono text-[10px] sm:text-xs transition-all duration-1000 ease-linear"
+          style={{
+            left: `${line.x}%`,
+            top: `${line.y}%`,
+            color: line.snippet.color,
+            opacity: line.opacity,
+            textShadow: `0 0 20px ${line.snippet.color}40`,
+          }}
+        >
+          <span className="mr-2 text-white/20">{line.snippet.lang}</span>
+          {line.snippet.code}
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -149,11 +135,6 @@ function SplashScreen({ onDone }: { onDone: () => void }) {
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#030712]"
       style={{ opacity: phase === "fadeout" ? 0 : 1, transition: "opacity 0.6s ease" }}
     >
-      {/* Code rain also on splash */}
-      <CodeRainBackground />
-
-      {/* Dark overlay so text is readable */}
-      <div className="absolute inset-0 z-[1] bg-[#030712]/70" />
 
       {phase === "typing" && (
         <div className="relative z-[2] w-full max-w-lg px-4">
@@ -556,7 +537,7 @@ export default function Home() {
         style={{ opacity: splashDone ? 1 : 0, transition: "opacity 0.6s ease 0.15s" }}
       >
         {/* Global Code Rain Background — covers entire app */}
-        <CodeRainBackground />
+        <FloatingCodeBackground />
 
         {/* Radial glow overlay */}
         <div className="pointer-events-none fixed inset-0 z-[1]" style={{ background: "radial-gradient(ellipse at 15% 20%, rgba(59,130,246,0.045) 0%, transparent 55%), radial-gradient(ellipse at 85% 80%, rgba(99,102,241,0.03) 0%, transparent 50%)" }} />
@@ -705,7 +686,7 @@ export default function Home() {
               </div>
 
               <div className="mt-10 flex flex-wrap gap-2.5">
-                {["Laravel", "React", "Python", "AI/ML"].map(t => (
+                {["Laravel", "React", "Python", "SQL", "C#", "AI/ML"].map(t => (
                   <span key={t} className="rounded-full px-3.5 py-1.5 text-[10px] font-medium tracking-wide text-white/30" style={glass.card}>
                     {t}
                   </span>
