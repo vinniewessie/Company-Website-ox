@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react"
 import Image from "next/image"
 import {
   Menu, X, Bot, BarChart3, ShoppingCart, Code, Gamepad2,
-  Mail, Phone, MessageCircle, Send, ArrowRight, Check, Sparkles
+  Mail, Phone, MessageCircle, Send, Check, Sparkles
 } from "lucide-react"
 
 const WHATSAPP_NUMBER = "263781132817"
@@ -219,73 +219,119 @@ function SplashScreen({ onDone }: { onDone: () => void }) {
 }
 
 // ─── WhatsApp Chatbot Demo ─────────────────────────────────────────────────────
-const WA_MSGS = [
-  { from: "user", text: "Hi, I need help with my order #4521" },
-  { from: "bot", text: "Hello! I'm Webman, your AI assistant. Let me check that for you..." },
-  { from: "bot", text: "Order #4521 is confirmed and ships today!" },
-  { from: "user", text: "What time will it arrive?" },
-  { from: "bot", text: "Estimated delivery: 2-5 PM. I've sent the tracking link!" },
-]
-
 function ChatbotDemo() {
-  const [vis, setVis] = useState(0)
+  const [messages, setMessages] = useState<Array<{ from: "user" | "bot"; text: string; isMenu?: boolean }>>([
+    { from: "bot", text: "Hello! I'm Webman, your AI assistant. How can I help you today?" }
+  ])
+  const [inputVal, setInputVal] = useState("")
+  const [isTyping, setIsTyping] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    setVis(0)
-    let i = 0
-    const t = setInterval(() => { i++; setVis(i); if (i >= WA_MSGS.length) clearInterval(t) }, 1400)
-    return () => clearInterval(t)
-  }, [])
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }) }, [messages, isTyping])
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }) }, [vis])
+  const handleSend = () => {
+    if (!inputVal.trim()) return
+    const userMsg = inputVal.trim()
+    setInputVal("")
+    setMessages(prev => [...prev, { from: "user", text: userMsg }])
+    setIsTyping(true)
+    
+    setTimeout(() => {
+      setIsTyping(false)
+      setMessages(prev => [
+        ...prev, 
+        { from: "bot", text: "Your request has been noted, kindly send a message to Webman directly for immediate assistance." },
+        { from: "bot", text: "Would you like to chat with us on WhatsApp?", isMenu: true }
+      ])
+    }, 1500)
+  }
+
+  const openWhatsApp = () => {
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi Webman, I need assistance.")}`, "_blank")
+  }
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
       {/* WA Header */}
-      <div className="flex items-center gap-3 px-4 py-3" style={{ background: "linear-gradient(135deg, #075e54 0%, #128c7e 100%)" }}>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">
-          <Bot className="h-5 w-5 text-white" />
+      <div className="flex items-center gap-3 px-3 py-2.5 sm:px-4 sm:py-3" style={{ background: "linear-gradient(135deg, #075e54 0%, #128c7e 100%)" }}>
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm sm:h-10 sm:w-10">
+          <Bot className="h-4 w-4 text-white sm:h-5 sm:w-5" />
         </div>
         <div className="flex-1">
-          <div className="text-sm font-semibold text-white">Webman</div>
+          <div className="text-xs font-semibold text-white sm:text-sm">Webman</div>
           <div className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-[10px] text-white/70">online</span>
+            <span className="text-[9px] text-white/70 sm:text-[10px]">online</span>
           </div>
         </div>
         <Phone className="h-4 w-4 text-white/60" />
       </div>
+      
       {/* Chat body */}
       <div
-        className="flex-1 space-y-2.5 overflow-y-auto p-4"
+        className="flex-1 space-y-2 overflow-y-auto p-3 sm:space-y-2.5 sm:p-4"
         style={{
           backgroundColor: "#0b141a",
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/svg%3E\")",
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/svg%3E\")",
         }}
       >
-        {WA_MSGS.slice(0, vis).map((m, i) => (
-          <div key={i} className={`flex ${m.from === "user" ? "justify-end" : "justify-start"}`} style={{ animation: "fadeUp 0.35s ease both" }}>
+        {messages.map((m, i) => (
+          <div key={i} className={`flex ${m.from === "user" ? "justify-end" : "justify-start"}`} style={{ animation: "fadeUp 0.3s ease both" }}>
             <div
-              className={`max-w-[82%] rounded-xl px-3.5 py-2.5 text-[13px] shadow-lg ${m.from === "user" ? "rounded-br-sm text-white" : "rounded-bl-sm text-white/90"}`}
-              style={{ background: m.from === "user" ? "linear-gradient(135deg, #005c4b 0%, #004a3d 100%)" : "#202c33" }}
+              className={`max-w-[85%] rounded-lg px-3 py-2 text-xs shadow-md sm:rounded-xl sm:px-3.5 sm:py-2.5 sm:text-[13px] ${m.from === "user" ? "rounded-br-sm text-white" : "rounded-bl-sm text-white/90"}`}
+              style={{ background: m.from === "user" ? "#005c4b" : "#202c33" }}
             >
               {m.text}
-              <div className="mt-1.5 flex items-center justify-end gap-1">
-                <span className="text-[9px] text-white/35">{new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
-                {m.from === "user" && <Check className="h-3 w-3 text-cyan-400" />}
+              {m.isMenu && (
+                <button
+                  onClick={openWhatsApp}
+                  className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-lg py-2 text-[11px] font-medium text-white transition-all hover:opacity-90 sm:py-2.5 sm:text-xs"
+                  style={{ background: "linear-gradient(135deg, #25d366 0%, #128c7e 100%)" }}
+                >
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  Chat on WhatsApp
+                </button>
+              )}
+              <div className="mt-1 flex items-center justify-end gap-1 sm:mt-1.5">
+                <span className="text-[8px] text-white/30 sm:text-[9px]">{new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
+                {m.from === "user" && <Check className="h-2.5 w-2.5 text-cyan-400 sm:h-3 sm:w-3" />}
               </div>
             </div>
           </div>
         ))}
+        {isTyping && (
+          <div className="flex justify-start" style={{ animation: "fadeUp 0.3s ease both" }}>
+            <div className="rounded-lg rounded-bl-sm px-3 py-2 sm:rounded-xl sm:px-3.5 sm:py-2.5" style={{ background: "#202c33" }}>
+              <div className="flex gap-1">
+                <span className="h-2 w-2 animate-bounce rounded-full bg-white/40" style={{ animationDelay: "0ms" }} />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-white/40" style={{ animationDelay: "150ms" }} />
+                <span className="h-2 w-2 animate-bounce rounded-full bg-white/40" style={{ animationDelay: "300ms" }} />
+              </div>
+            </div>
+          </div>
+        )}
         <div ref={endRef} />
       </div>
+      
       {/* Input */}
-      <div className="flex items-center gap-2.5 px-3 py-3" style={{ background: "#202c33" }}>
-        <div className="flex-1 rounded-full px-4 py-2.5 text-xs text-white/30" style={{ background: "#2a3942" }}>Type a message</div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full shadow-lg" style={{ background: "linear-gradient(135deg, #00a884 0%, #008f72 100%)" }}>
+      <div className="flex items-center gap-2 px-2.5 py-2.5 sm:gap-2.5 sm:px-3 sm:py-3" style={{ background: "#202c33" }}>
+        <input
+          type="text"
+          value={inputVal}
+          onChange={e => setInputVal(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && handleSend()}
+          placeholder="Type a message..."
+          className="flex-1 rounded-full px-3 py-2 text-xs text-white placeholder:text-white/30 focus:outline-none sm:px-4 sm:py-2.5 sm:text-sm"
+          style={{ background: "#2a3942" }}
+        />
+        <button 
+          onClick={handleSend}
+          disabled={!inputVal.trim()}
+          className="flex h-9 w-9 items-center justify-center rounded-full shadow-lg transition-all hover:scale-105 disabled:opacity-40 sm:h-10 sm:w-10" 
+          style={{ background: "linear-gradient(135deg, #00a884 0%, #008f72 100%)" }}
+        >
           <Send className="h-4 w-4 text-white" />
-        </div>
+        </button>
       </div>
     </div>
   )
@@ -609,6 +655,8 @@ export default function Home() {
           @keyframes fadeIn { from{opacity:0} to{opacity:1} }
           @keyframes sideStagger { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:translateX(0)} }
           @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+          ::-webkit-scrollbar { display: none; }
+          * { -ms-overflow-style: none; scrollbar-width: none; }
         `}} />
 
         {/* ── Nav ── */}
@@ -701,10 +749,10 @@ export default function Home() {
         )}
 
         {/* ── Horizontal Scroll Container ── */}
-        <div ref={containerRef} className="relative z-[2] flex h-full overflow-hidden" style={{ scrollSnapType: "none" }}>
+        <div ref={containerRef} className="relative z-[2] flex h-full overflow-x-auto overflow-y-hidden scroll-smooth" style={{ scrollSnapType: "x mandatory", scrollbarWidth: "none", msOverflowStyle: "none" }}>
           
           {/* HOME */}
-          <section className="relative flex min-h-screen w-screen shrink-0 flex-col justify-center px-4 pt-16 sm:px-6 sm:pt-20 md:px-10 lg:px-16">
+          <section className="relative flex min-h-screen w-screen shrink-0 snap-start snap-always flex-col justify-center px-4 pt-16 sm:px-6 sm:pt-20 md:px-10 lg:px-16">
             <div className="relative z-10 max-w-lg sm:max-w-xl lg:max-w-2xl">
               {/* Status badge */}
               <div className="mb-5 inline-flex items-center gap-2.5 rounded-full px-4 py-2 sm:mb-7" style={glass.card}>
@@ -725,11 +773,10 @@ export default function Home() {
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <button
                   onClick={() => goTo(2)}
-                  className="group flex items-center justify-center gap-2.5 rounded-full px-6 py-3.5 text-sm font-medium text-white/85 transition-all duration-200 hover:scale-[1.02] sm:px-8 sm:py-4"
+                  className="flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-medium text-white/85 transition-all duration-200 hover:scale-[1.02] sm:px-8 sm:py-4"
                   style={{ ...glass.card, background: "linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(139,92,246,0.15) 100%)" }}
                 >
                   Book a Service
-                  <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </button>
                 <button
                   onClick={() => goTo(1)}
@@ -755,7 +802,7 @@ export default function Home() {
           </section>
 
           {/* SERVICES */}
-          <section className="flex min-h-screen w-screen shrink-0 items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-0 lg:px-16">
+          <section className="flex min-h-screen w-screen shrink-0 snap-start snap-always items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-0 lg:px-16">
             <div className="relative z-10 mx-auto w-full max-w-5xl">
               <div className="mb-6 sm:mb-9">
                 <h2 className="mb-2 text-xl font-extralight tracking-tight text-white/90 sm:text-2xl md:text-3xl lg:text-4xl">Our Services</h2>
@@ -802,7 +849,7 @@ export default function Home() {
           </section>
 
           {/* CONTACT */}
-          <section className="flex min-h-screen w-screen shrink-0 items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-0 lg:px-16">
+          <section className="flex min-h-screen w-screen shrink-0 snap-start snap-always items-center px-4 py-16 sm:px-6 sm:py-20 md:px-10 md:py-0 lg:px-16">
             <div className="relative z-10 mx-auto w-full max-w-sm sm:max-w-md">
               <div className="mb-7 text-center sm:mb-9">
                 <h2 className="mb-2 text-xl font-extralight tracking-tight text-white/90 sm:text-2xl md:text-3xl lg:text-4xl">Get in Touch</h2>
