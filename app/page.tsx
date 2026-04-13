@@ -10,7 +10,7 @@ import {
 
 const WHATSAPP_NUMBER = "263781132817"
 const EMAIL = "vincentwessie@gmail.com"
-const PHONE = "+263 781 132 817"
+const PHONE = "+263 714 384 521"
 
 // ─── Skills Data ───────────────────────────────────────────────────────────────
 const SKILLS = [
