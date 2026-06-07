@@ -15,24 +15,31 @@ const ROLE = "AI & Software Engineer"
 
 // ─── Brand Logo ──────────────────────────────────────────────────────────────
 function BrandLogo({ compact = false }: { compact?: boolean }) {
+  const size = compact ? 32 : 38
   return (
     <span className="flex items-center gap-2.5">
       <span
-        className="flex items-center justify-center rounded-xl"
+        className="relative shrink-0 overflow-hidden rounded-full"
         style={{
-          width: compact ? 32 : 36,
-          height: compact ? 32 : 36,
-          background: "linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(139,92,246,0.9) 100%)",
-          boxShadow: "0 4px 16px rgba(59,130,246,0.35), inset 0 1px 0 rgba(255,255,255,0.25)",
+          width: size,
+          height: size,
+          border: "1px solid rgba(255,255,255,0.18)",
+          boxShadow: "0 4px 16px rgba(59,130,246,0.25), inset 0 1px 0 rgba(255,255,255,0.2)",
         }}
       >
-        <span className="font-mono text-sm font-bold tracking-tight text-white">VW</span>
+        <Image
+          src="/vincent-profile.jpeg"
+          alt="Vincent P Wesley"
+          fill
+          sizes="40px"
+          className="object-cover"
+        />
       </span>
-      <span className="flex flex-col leading-none">
-        <span className="text-sm font-semibold tracking-tight text-white/90 sm:text-[15px]">
+      <span className="flex min-w-0 flex-col leading-none">
+        <span className="truncate text-sm font-semibold tracking-tight text-white/90 sm:text-[15px]">
           Vincent P Wesley
         </span>
-        <span className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.2em] text-white/35">
+        <span className="mt-0.5 truncate text-[8px] font-medium uppercase tracking-[0.2em] text-white/35 sm:text-[9px]">
           {ROLE}
         </span>
       </span>
@@ -560,8 +567,8 @@ export default function Home() {
         `}} />
 
         {/* ── Nav ── */}
-        <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-4 py-3 sm:px-6 md:px-10 lg:px-14" style={glass.nav}>
-          <button onClick={() => goTo(0)} className="flex items-center gap-3 transition-all duration-200 hover:opacity-80">
+        <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between gap-3 px-3 py-3 sm:px-6 md:px-10 lg:px-14" style={glass.nav}>
+          <button onClick={() => goTo(0)} className="flex min-w-0 items-center gap-3 transition-all duration-200 hover:opacity-80">
             <BrandLogo />
           </button>
 
@@ -591,7 +598,7 @@ export default function Home() {
 
           <button
             onClick={() => setSidebarOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-white/50 transition-all duration-200 hover:text-white/75 md:hidden"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white/50 transition-all duration-200 hover:text-white/75 md:hidden"
             style={glass.btn}
           >
             <Menu className="h-5 w-5" />
@@ -709,23 +716,18 @@ export default function Home() {
                 <p className="text-xs text-white/35 sm:text-sm">Get to know the engineer behind the work</p>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-[300px_1fr] md:gap-8 lg:gap-10">
+              <div className="grid items-center gap-7 md:grid-cols-[300px_1fr] md:gap-8 lg:gap-12">
                 {/* Photo */}
-                <div className="mx-auto w-full max-w-[280px] md:mx-0">
+                <div className="mx-auto w-full max-w-[260px] sm:max-w-[300px] md:mx-0 md:max-w-none">
                   <div
                     className="relative aspect-[4/5] overflow-hidden rounded-3xl"
                     style={glass.card}
                   >
-                    {/*
-                      ─── PROFILE IMAGE ───
-                      Replace "/profile-placeholder.png" with your own photo.
-                      Upload an image to the public folder and update the src below.
-                    */}
                     <Image
-                      src="/profile-placeholder.png"
+                      src="/vincent-profile.jpeg"
                       alt="Vincent P Wesley"
                       fill
-                      sizes="(max-width: 768px) 280px, 300px"
+                      sizes="(max-width: 768px) 300px, 300px"
                       className="object-cover"
                       priority
                     />
